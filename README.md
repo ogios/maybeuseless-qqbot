@@ -1,11 +1,15 @@
 # selfuse-qqbot-nonebot2
 
-机器人基于[nonebot2](https://github.com/nonebot/nonebot2)和[go-cqhttpd](https://github.com/Mrs4s/go-cqhttp)框架所搭建  
+> 需要node环境和pyexecjs库
+
+机器人基于 [nonebot2](https://github.com/nonebot/nonebot2) 和 [go-cqhttpd](https://github.com/Mrs4s/go-cqhttp) 框架所搭建  
 服务器基于javaservlet写的，机器人和服务器之间通过socket通信
+
+
 
 - **图片翻译功能**  
   - OCR和翻译并不是我自己实现的，用的是有道的接口(我也是从别人那的代码看到的这个接口)
-  - 该接口没有任何加密参数，可能是根据请求频率封锁ip来防止过度请求，不过我没试过一次性请求那么多次
+  - 该接口没有任何加密参数，可能是根据请求频率封ip来防止过度请求，不过我没试过
   - 使用方法:
     - 
     - 发送 `/trans` 后将该用户qq号标记，在5分钟内发送图片即可翻译，翻译后标记取消(即一次 `/trans` 只能翻译一张图片)。一条消息中包含多个图片也只能翻译第一张，可以自己修改。  
@@ -23,6 +27,7 @@
 - **ChatGPT**
   - 本人注册了账号但这里的不是我自己的账号，用的是逆向了一位站长提供的免费chatgpt的网页接口: [AI CHAT公益站](https://chatgpt.sbaliyun.com/) 有能力可以去支持一下
   - 这个现在已经基本不抱希望可以用，因为经常崩，站长也经常欠费，可以换成自己的
+  - 需要node环境加载和运行crypto-js，也可以自己把这个js文件下下来直接用
   - 使用方法:
     - 
     - 在群组中 `@机器人` 并发送内容即可对话，私聊使用 `/chat` 后写上内容就行
