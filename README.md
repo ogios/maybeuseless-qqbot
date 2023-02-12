@@ -1,6 +1,6 @@
 <div align="center">
 
-# selfuse-qqbot-nonebot2
+# 可能毫无用处的qqbot
 
 </div>
 
