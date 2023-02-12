@@ -6,7 +6,7 @@
 
 > 需要node环境和pyexecjs库
 
-机器人基于 [nonebot2](https://github.com/nonebot/nonebot2) 和 [go-cqhttpd](https://github.com/Mrs4s/go-cqhttp) 框架所搭建  
+机器人基于 [nonebot2](https://github.com/nonebot/nonebot2) 和 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 框架所搭建  
 服务器基于javaservlet写的，机器人和服务器之间通过socket通信
 
 
