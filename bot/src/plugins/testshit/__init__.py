@@ -18,74 +18,12 @@ from .config import Config
 from .server import Server
 from .translate import OCR
 OCR = OCR()
-# from .server import serve
 
 global_config = get_driver().config
 config = Config.parse_obj(global_config)
 
 MARK_ISCLOCKINLISTENERON = False
 server = None
-
-# command = on_command("test")
-
-
-# def start_thread_loop(loop: asyncio.windows_events.ProactorEventLoop):
-#     asyncio.set_event_loop(loop)
-#     loop.run_forever()
-#
-#
-# @serve
-# async def test(addr):
-#     while len(nonebot.get_bots().values()) <= 0:
-#         time.sleep(0.5)
-#     bot: Bot = tuple(nonebot.get_bots().values())[0]
-#     await bot.send_private_msg(user_id=2134692955, message=Message(addr))
-#
-#
-# loop = asyncio.new_event_loop()
-# print(type(loop))
-# th = Thread(target=start_thread_loop, args=(loop,))
-# th.start()
-#
-# asyncio.run_coroutine_threadsafe(test, loop)
-# print("shit")
-
-# def start(bot: Bot):
-#     asyncio.run(serverStart(bot))
-# #
-# #
-# async def serverStart(bot: Bot):
-#     await bot.send_private_msg(user_id=2134692955, message=Message(time.strftime("[ %Y-%m-%d %H:%M:%S ] Socket opened", time.localtime())))
-#     await bot.send_private_msg(user_id=2134692955, message=Message(time.strftime("[ %Y-%m-%d %H:%M:%S ] Socket opened", time.localtime())))
-#     await bot.send_private_msg(user_id=2134692955, message=Message(time.strftime("[ %Y-%m-%d %H:%M:%S ] Socket opened", time.localtime())))
-
-
-# @inte.handle()
-# async def _(event: PrivateMessageEvent, bot: Bot, args: Message = CommandArg()):
-#     # print(type(inte))
-#     global MARK_ISCLOCKINLISTENERON
-#     global server
-#     # global th
-#     args = args.extract_plain_text().split()
-#     if len(args) != 1:
-#         await inte.finish(Message("Wrong input"))
-#     match args[0]:
-#         case "start":
-#             if MARK_ISCLOCKINLISTENERON:
-#                 await inte.finish(Message("already started"))
-#             # await serverStart(bot)
-#             # Thread(target=start, args=(bot,), daemon=True).start()
-#             server = Server(bot, event.user_id)
-#             Thread(target=server._test, daemon=True).start()
-#             MARK_ISCLOCKINLISTENERON = True
-#             await inte.finish(Message("started"))
-#         case "stop":
-#             await server.stop()
-#             MARK_ISCLOCKINLISTENERON = False
-#             await inte.finish(Message("stopped"))
-#         case _:
-#             # print(th.is_alive())
-#             await inte.finish(Message("what're you saying?"))
 
 
 url = "https://cc-api.sbaliyun.com/v1/completions"
@@ -127,16 +65,15 @@ at = on_message(rule=rule_at)
 @at.handle()
 async def _(event: GroupMessageEvent, bot:Bot):
     group_id = event.group_id
-    if event.group_id == 43621821:
-        print(event.user_id)
-        user_id = event.user_id
-        text = event.get_plaintext()
-        if len(text) == 0:
-            await at.finish("你什么也没有输入")
-        mid = await bot.send_group_msg(group_id=group_id, message=f'[CQ:at,qq={user_id}] {"正在思考中..."}')
-        reply = get(context=text)
-        await bot.delete_msg(message_id=mid["message_id"])
-        await bot.send_group_msg(group_id=group_id, message=f'[CQ:at,qq={user_id}] {reply}')
+    print(event.user_id)
+    user_id = event.user_id
+    text = event.get_plaintext()
+    if len(text) == 0:
+        await at.finish("你什么也没有输入")
+    mid = await bot.send_group_msg(group_id=group_id, message=f'[CQ:at,qq={user_id}] {"正在思考中..."}')
+    reply = get(context=text)
+    await bot.delete_msg(message_id=mid["message_id"])
+    await bot.send_group_msg(group_id=group_id, message=f'[CQ:at,qq={user_id}] {reply}')
 
 
 noat = on_message(rule=rule_noat)
@@ -150,13 +87,12 @@ async def _(event: GroupMessageEvent, bot:Bot):
 private_chat = on_command("chat")
 @private_chat.handle()
 async def _(event: PrivateMessageEvent, bot:Bot):
-    if event.user_id == 2134692955:
-        text = event.get_plaintext()
-        if len(text) == 0:
-            await at.finish("你什么也没有输入")
-        await private_chat.send("正在思考中...")
-        reply = get(context=text)
-        await private_chat.finish(reply)
+    text = event.get_plaintext()
+    if len(text) == 0:
+        await at.finish("你什么也没有输入")
+    await private_chat.send("正在思考中...")
+    reply = get(context=text)
+    await private_chat.finish(reply)
 
 
 async def sendTicket(lifetime:int):
@@ -235,24 +171,6 @@ async def _(event: MessageEvent, bot:Bot):
                 await trans.finish(msg)
         else:
             translate_waiter.pop(event.user_id)
-
-
-
-
-# testarea = on_message()
-# @testarea.handle()
-# async def _(event: MessageEvent, bot:Bot):
-#     if event.user_id == 2134692955:
-#         messages = event.get_message()
-#         print(messages)
-#         for i in messages["image"]:
-#             url = i.get("data")["url"]
-#             result = OCR.ocr(url)
-#             if isinstance(result, str):
-#                 await testarea.finish(result)
-#             else:
-#                 await testarea.finish(Message(MessageSegment.image(file=result)))
-#         print("no pic")
 
 
 
