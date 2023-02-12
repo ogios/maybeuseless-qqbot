@@ -1,4 +1,8 @@
+<div align="center">
+
 # selfuse-qqbot-nonebot2
+
+</div>
 
 > 需要node环境和pyexecjs库
 
